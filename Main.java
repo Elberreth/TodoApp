@@ -2,6 +2,9 @@ package se.lexicon;
 
 
 import java.time.LocalDate;
+
+import static se.lexicon.ToDoItem.createUniqueId;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -22,11 +25,11 @@ public class Main {
 
 
                 System.out.println(item.getSummary());
-                //System.out.println(august.getSummary());
-                //System.out.println(item1.getSummary());
-                //System.out.println(daniel.getSummary());
+                System.out.println(august.getSummary());
+                System.out.println(item1.getSummary());
+                System.out.println(daniel.getSummary());
                 System.out.println(itemTask.getSummary());
-                //System.out.println(itemTask2.getSummary());
+                System.out.println(itemTask2.getSummary());
             }
         }
 

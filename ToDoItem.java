@@ -16,6 +16,7 @@ public class ToDoItem {
             setCreator(creator);
             setTitle(title);
             setDeadLine(deadLine);
+            id = createUniqueId();
         }
         public Person getCreator() {return creator;}
         public int getId() {return id;}
