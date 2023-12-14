@@ -1,5 +1,7 @@
 package se.lexicon;
 
+import java.util.Objects;
+
 public class ToDoItemTask {
 
 
@@ -30,12 +32,30 @@ public class ToDoItemTask {
         setAssigned(true);
         id = createUniqueId();
     }
-        public String getSummary() {
-            return "id: " + getId() + "\n" +
-                    "Task info: " + getTodoItem().getTitle() + "\n" +
-                    "Assigned Person " + getAssignee().getFirstName() + " " + getAssignee().getLastName();
-        }
-        public static int createUniqueId(){
+    @Override
+    public String toString() {
+        return
+                "id:" + getId() + "\n" +
+                "TodoItem=" + getTodoItem();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ToDoItemTask that = (ToDoItemTask) o;
+        return id == that.id && Objects.equals(todoItem, that.todoItem);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTodoItem());
+    }
+
+
+
+    public static int createUniqueId(){
             int uniqueId = taskObject;
             taskObject++;
             return uniqueId;
