@@ -24,12 +24,12 @@ public class Main {
                 ToDoItemTask itemTask2 = new ToDoItemTask(item1, daniel);
 
 
-                System.out.println(item.getSummary());
+               /* System.out.println(item.getSummary());
                 System.out.println(august.getSummary());
                 System.out.println(item1.getSummary());
                 System.out.println(daniel.getSummary());
                 System.out.println(itemTask.getSummary());
-                System.out.println(itemTask2.getSummary());
+                System.out.println(itemTask2.getSummary());*/
             }
         }
 

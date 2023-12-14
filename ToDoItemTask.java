@@ -13,26 +13,23 @@ public class ToDoItemTask {
         public ToDoItem getTodoItem(){return todoItem;}
         public int getId() {return id;}
         public Person getAssignee() {return assignee;}
-
-        public ToDoItemTask(ToDoItem todoItem, Person assignee) {
-            setAssignee(assignee);
-            setTodoItem(todoItem);
-            setAssigned(true);
-            id = createUniqueId();
-        }
         public boolean isAssigned() {return assigned;}
-        public void setAssigned(boolean assigned) {
-            this.assigned = assigned;
-        }
+
+        public void setAssigned(boolean assigned) {this.assigned = assigned;}
         public void setTodoItem(ToDoItem todoItem) {
             if(todoItem == null) throw new IllegalArgumentException("todo item was null");
-            this.todoItem = todoItem;
-        }
-
+            this.todoItem = todoItem;}
         public void setAssignee(Person assignee) {
             if (assignee == null) throw new IllegalArgumentException("assignee was null");
             this.assignee = assignee;
-        }
+            setAssigned(true);}
+
+        public ToDoItemTask(ToDoItem todoItem, Person assignee) {
+        setAssignee(assignee);
+        setTodoItem(todoItem);
+        setAssigned(true);
+        id = createUniqueId();
+    }
         public String getSummary() {
             return "id: " + getId() + "\n" +
                     "Task info: " + getTodoItem().getTitle() + "\n" +

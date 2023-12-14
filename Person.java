@@ -9,15 +9,14 @@ public class Person {
         private String firstName;
         private String lastName;
         private String email;
+        private AppUser credentials;
 
+        public AppUser getCredentials() {return credentials;}
 
-        public Person (String firstName, String lastName, String email){
-            setFirstname(firstName);
-            setLastName(lastName);
-            setEmail(email);
-            id = createUniqueId();
-        }
-
+        public void setCredentials(AppUser credentials) {
+        if (credentials == null) throw new IllegalArgumentException("Credentials was null");
+        this.credentials = credentials;
+    }
         public void setFirstname (String firstName){
             if (firstName == null) throw new IllegalArgumentException("First name was null");
             this.firstName =firstName;
@@ -49,8 +48,23 @@ public class Person {
             if (email == null) throw new IllegalArgumentException("email was null");
             this.email = email;
         }
-        public String getSummary(){
-            return "{ " + getFirstName() + " " + getLastName() + ", email: " + getEmail() + ", id: " + getId() + " }";
-        }
+    public Person (String firstName, String lastName, String email){
+        setFirstname(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        id = createUniqueId();
     }
+
+    public Person (String firstName, String lastName, String email, AppUser credentials) {
+        this(firstName, lastName, email);
+        setCredentials(credentials);
+    }
+
+    @Override
+    public String toString() {
+        return  "id:" + getId() + "\n" +
+                "Name:" + getFirstName() + " " + getLastName() + "\n" +
+                "Email:" + getEmail();
+    }
+}
 
