@@ -5,8 +5,6 @@ import java.util.Objects;
 public class ToDoItemTask {
 
 
-
-        static int taskObject;
         private int id;
         private boolean assigned;
         private ToDoItem todoItem;
@@ -29,7 +27,7 @@ public class ToDoItemTask {
             setAssigned(true);}
     private void setId(int id){this.id = id;}
 
-        public ToDoItemTask(ToDoItem todoItem, Person assignee) {
+        public ToDoItemTask(ToDoItem todoItem, Person assignee, int id) {
         setAssignee(assignee);
         setTodoItem(todoItem);
         setAssigned(true);

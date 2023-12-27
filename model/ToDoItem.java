@@ -42,7 +42,7 @@ public class ToDoItem {
         this.id = id;
     }
 
-    public ToDoItem(String title, String description, LocalDate deadLine, Person creator) {
+    public ToDoItem(String title, String description, LocalDate deadLine, Person creator, int id) {
         setDone(false);
         setTaskDescription(description);
         setCreator(creator);

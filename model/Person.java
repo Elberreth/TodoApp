@@ -47,14 +47,14 @@ public class Person {
     }
 
     //Constructor
-    public Person (String firstName, String lastName, String email){
+    public Person (String firstName, String lastName, String email, int id){
         setFirstname(firstName);
         setLastName(lastName);
         setEmail(email);
         setId(id);
     }
 
-    public Person (String firstName, String lastName, String email, AppUser credentials) {
+    public Person (String firstName, String lastName, String email, int id, AppUser credentials){
         this(firstName, lastName, email, id);
         setCredentials(credentials);
     }
