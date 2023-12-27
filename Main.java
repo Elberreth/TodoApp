@@ -1,9 +1,14 @@
 package se.lexicon;
 
 
-import java.time.LocalDate;
+import se.lexicon.model.AppUser;
+import se.lexicon.model.Person;
+import se.lexicon.model.ToDoItem;
+import se.lexicon.model.ToDoItemTask;
+import se.lexicon.util.AppRole;
+import se.lexicon.util.SequencerEnum;
 
-import static se.lexicon.ToDoItem.createUniqueId;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,16 +21,8 @@ public class Main {
 
                 AppUser user = new AppUser("August", "Hej", AppRole.ROLE_APP_ADMIN);
                 AppUser user1 = new AppUser("daniel", "qwerty", AppRole.ROLE_APP_USER);
-                AppUser user2 = new AppUser("Kent", "aaaaa", AppRole.ROLE_APP_ADMIN);
-        System.out.println(user);
-                System.out.println(itemTask);
-        System.out.println("\n");
-                System.out.println(user1);
 
-                System.out.println(itemTask2);
-        System.out.println("\n");
-                System.out.println(user2);
-        System.out.println(item1);
+                System.out.println(august);
 
             }
         }
