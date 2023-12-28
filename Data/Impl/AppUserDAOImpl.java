@@ -1,4 +1,13 @@
 package se.lexicon.Data.Impl;
 
-public interface AppUserDAOImpl {
+import se.lexicon.model.AppUser;
+import se.lexicon.model.Person;
+
+import java.util.Collection;
+public interface AppUserDAOImpl extends BaseDao<Person, Integer> {
+
+
+
+
 }
+
