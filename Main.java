@@ -13,18 +13,27 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-                Person august = new Person("August", "Brusbäck", "aggebrusback@gmail.com", Sequencer.getNextId(SequencerEnum.PERSON));
-                Person daniel = new Person("Daniel", "Carlsson", "hej123@gmail.com",2);
-                ToDoItem item = new ToDoItem("Chores", "Do the dishes", LocalDate.now(), august,1);
-                ToDoItem item1 = new ToDoItem("Chores", "Do the dishes", LocalDate.now(), daniel,2);
-                ToDoItemTask itemTask = new ToDoItemTask(item, august,1);
-                ToDoItemTask itemTask2 = new ToDoItemTask(item1, daniel, 2);
+        Person August = new Person("August", "Klas", "aggebrusback@gmail.com", Sequencer.getNextId(SequencerEnum.PERSON),new AppUser("August", "qwerty123", AppRole.ROLE_APP_ADMIN));
+        ToDoItem Item = new ToDoItem("Chores", "Do the dishes", LocalDate.now(),August,Sequencer.getNextId(SequencerEnum.TODOITEM));
+        ToDoItemTask itemTask = new ToDoItemTask(Item, August, Sequencer.getNextId(SequencerEnum.TODOITEMTASK));
+        AppUser user = new AppUser("August", "qwerty", AppRole.ROLE_APP_ADMIN);
 
-                AppUser user = new AppUser("August", "Hej", AppRole.ROLE_APP_ADMIN);
-                AppUser user1 = new AppUser("daniel", "qwerty", AppRole.ROLE_APP_USER);
+        Person Daniel = new Person("Daniel", "Carlsson", "Hej123@gmail.com", Sequencer.getNextId(SequencerEnum.PERSON),new AppUser("Daniel", "hej123", AppRole.ROLE_APP_USER));
+        ToDoItem Item1 = new ToDoItem("Chores", "Do the dishes", LocalDate.now(),Daniel,Sequencer.getNextId(SequencerEnum.TODOITEM));
+        ToDoItemTask itemTask1 = new ToDoItemTask(Item1, Daniel, Sequencer.getNextId(SequencerEnum.TODOITEMTASK));
+        AppUser user1 = new AppUser("Daniel", "qwerty", AppRole.ROLE_APP_USER);
 
-                System.out.println(user);
-
-            }
-        }
+        System.out.println(user);
+        System.out.println("-------");
+        System.out.println(itemTask1);
+        System.out.println("-------");
+        System.out.println(Daniel);
+        System.out.println("-------");
+        System.out.println(user1);
+        System.out.println("-------");
+        System.out.println(itemTask);
+        System.out.println("-------");
+        System.out.println(August);
+    }
+}
 

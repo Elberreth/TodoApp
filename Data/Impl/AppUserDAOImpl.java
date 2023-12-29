@@ -1,13 +1,13 @@
 package se.lexicon.Data.Impl;
 
 import se.lexicon.model.AppUser;
-import se.lexicon.model.Person;
 
 import java.util.Collection;
-public interface AppUserDAOImpl extends BaseDao<Person, Integer> {
 
-
-
-
+public interface AppUserDAOImpl{
+    public AppUser persist(AppUser user);
+    public AppUser findByUserName(String username);
+    public Collection<AppUser> FindAll();
+    public void remove (String username);
 }
 

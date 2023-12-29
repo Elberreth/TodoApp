@@ -2,6 +2,8 @@ package se.lexicon.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import se.lexicon.util.StringHelper;
+
 
 public class ToDoItem {
     private int id;
@@ -22,15 +24,15 @@ public class ToDoItem {
 
     //setters
     public void setTaskDescription (String description) {
-        if (description == null) throw new IllegalArgumentException("description was null");
+        if (StringHelper.isNullOrEmpty(description)) throw new IllegalArgumentException("description was null");
         this.description = description;
     }
     public void setTitle(String title) {
-        if (title == null) throw new IllegalArgumentException("title was null");
+        if (StringHelper.isNullOrEmpty(title)) throw new IllegalArgumentException("title was null");
         this.title = title;
     }
     public void setDeadLine(LocalDate deadLine) {
-        if(deadLine == null ||deadLine.isAfter(LocalDate.now())) throw new IllegalArgumentException("DeadLine was null or has passed");
+        if(deadLine == null ||deadLine.isBefore(LocalDate.now())) throw new IllegalArgumentException("DeadLine was null or has passed");
         else this.deadLine = deadLine;
     }
     public void setCreator(Person creator) {

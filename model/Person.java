@@ -1,5 +1,7 @@
 package se.lexicon.model;
 
+import se.lexicon.util.StringHelper;
+
 import java.util.Objects;
 
 public class Person {
@@ -12,7 +14,7 @@ public class Person {
 
     //Setters
     public void setEmail(String email) {
-        if (email == null) throw new IllegalArgumentException("email was null");
+        if (StringHelper.isNullOrEmpty(email)) throw new IllegalArgumentException("email was null");
         this.email = email;
     }
     public void setCredentials(AppUser credentials) {
@@ -20,11 +22,11 @@ public class Person {
         this.credentials = credentials;
     }
     public void setFirstname (String firstName){
-        if (firstName == null) throw new IllegalArgumentException("First name was null");
+        if (StringHelper.isNullOrEmpty(firstName)) throw new IllegalArgumentException("First name was null");
         this.firstName =firstName;
     }
     public void setLastName (String lastName) {
-        if (lastName == null) throw new IllegalArgumentException("Lastname was null");
+        if (StringHelper.isNullOrEmpty(lastName)) throw new IllegalArgumentException("Lastname was null");
         this.lastName =lastName;
     }
     private void setId (int id){this.id = id;}
@@ -47,23 +49,29 @@ public class Person {
     }
 
     //Constructor
-    public Person (String firstName, String lastName, String email, int id){
+    public Person (String firstName, String lastName, String email, int id, AppUser credentials){
         setFirstname(firstName);
         setLastName(lastName);
         setEmail(email);
         setId(id);
-    }
-
-    public Person (String firstName, String lastName, String email, int id, AppUser credentials){
-        this(firstName, lastName, email, id);
         setCredentials(credentials);
     }
 
+    /*public Person(int id, String firstName, String lastName, String email, AppUser credentials) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.credentials = credentials;
+        setCredentials(credentials);
+
+     */
     @Override
     public String toString() {
         return  "id:" + getId() + "\n" +
                 "Name:" + getFirstName() + " " + getLastName() + "\n" +
-                "Email:" + getEmail();
+                "Email:" + getEmail() + " " + "\n" +
+                "Credentials:" + getCredentials();
     }
 
     @Override
@@ -71,11 +79,15 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(email, person.email);
+        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(email, person.email) && Objects.equals(credentials, person.credentials);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email);
+        return Objects.hash(id, firstName, lastName, email,credentials);
     }
 }
+
+
+
+
