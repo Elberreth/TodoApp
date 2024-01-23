@@ -6,11 +6,11 @@ import se.lexicon.util.AppRole;
 import java.util.Objects;
 
 public class AppUser {
-    private String userName;
+    private String user_Name;
     private String password;
     private AppRole role;
 
-    public String getUserName() {return userName;}
+    public String getUserName() {return user_Name;}
     public String getPassword() {return password;}
     public AppRole getRole() {return role;}
 
@@ -20,7 +20,7 @@ public class AppUser {
     }
     public void setUserName(String userName) {
         if (userName == null) throw new IllegalArgumentException("Username was null");
-        else this.userName = userName;
+        else this.user_Name = user_Name;
     }
     public void setPassword(String password) {
         if (password == null) throw new IllegalArgumentException("Password was null");
@@ -37,7 +37,7 @@ public class AppUser {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppUser appUser = (AppUser) o;
-        return Objects.equals(userName, appUser.userName)  && role == appUser.role;
+        return Objects.equals(user_Name, appUser.user_Name)  && role == appUser.role;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AppUser {
     }
 
     @Override
-    public int hashCode() {return userName.hashCode() + role.hashCode();}
+    public int hashCode() {return user_Name.hashCode() + role.hashCode();}
 
 }
 

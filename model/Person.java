@@ -2,92 +2,94 @@ package se.lexicon.model;
 
 import se.lexicon.util.StringHelper;
 
-import java.util.Objects;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import se.lexicon.model.MySQLConnection;
 
 public class Person {
 
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private AppUser credentials;
+    private int person_id;
+    private String first_Name;
+    private String last_Name;
 
-    //Setters
-    public void setEmail(String email) {
-        if (StringHelper.isNullOrEmpty(email)) throw new IllegalArgumentException("email was null");
-        this.email = email;
+
+
+    public void setFirst_Name (String first_Name){
+        if (StringHelper.isNullOrEmpty(first_Name)) throw new IllegalArgumentException("First name was null");
+        this.first_Name =first_Name;
     }
-    public void setCredentials(AppUser credentials) {
-        if (credentials == null) throw new IllegalArgumentException("Credentials was null");
-        this.credentials = credentials;
+    public void setLast_Name (String last_Name) {
+        if (StringHelper.isNullOrEmpty(last_Name)) throw new IllegalArgumentException("Lastname was null");
+        this.last_Name =last_Name;
     }
-    public void setFirstname (String firstName){
-        if (StringHelper.isNullOrEmpty(firstName)) throw new IllegalArgumentException("First name was null");
-        this.firstName =firstName;
-    }
-    public void setLastName (String lastName) {
-        if (StringHelper.isNullOrEmpty(lastName)) throw new IllegalArgumentException("Lastname was null");
-        this.lastName =lastName;
-    }
-    private void setId (int id){this.id = id;}
+    private void setId (int id){this.person_id = id;}
 
     //Getters
-    public AppUser getCredentials() {return credentials;
-    }
-    public String getFirstName() {
-        return firstName;
+
+    public String getFirst_Name() {
+        return first_Name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_Name() {
+        return last_Name;
     }
     public int getId() {
-        return id;
+        return person_id;
     }
-    public String getEmail() {
-        return email;
-    }
+
 
     //Constructor
-    public Person (String firstName, String lastName, String email, int id, AppUser credentials){
-        setFirstname(firstName);
-        setLastName(lastName);
-        setEmail(email);
+    /*public Person(String first_Name, String last_Name, int id) throws SQLException {
+        setFirstname(first_Name);
+        setLastName(last_Name);
         setId(id);
-        setCredentials(credentials);
-    }
+*/
 
-    /*public Person(int id, String firstName, String lastName, String email, AppUser credentials) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.credentials = credentials;
-        setCredentials(credentials);
 
-     */
-    @Override
-    public String toString() {
-        return  "id:" + getId() + "\n" +
-                "Name:" + getFirstName() + " " + getLastName() + "\n" +
-                "Email:" + getEmail() + " " + "\n" +
-                "Credentials:" + getCredentials();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(email, person.email) && Objects.equals(credentials, person.credentials);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email,credentials);
-    }
-}
+    public Person(int person_id, String first_Name, String last_Name ) throws SQLException {
+        this.person_id = person_id;
+        this.first_Name = first_Name;
+        this.last_Name = last_Name;
 
 
 
 
+        Person person = new Person(person_id, "Testsson", "Test" );
+        String insertQueryPerson = "INSERT INTO students (first_name, last_name) VALUES(?,?)";
+        String insertQueryPersonRelationship = "INSERT INTO person_id (person_id) VALUES(?)";
+
+        Connection connection = MySQLConnection.getConnection();
+
+        try (
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQueryPerson, PreparedStatement.RETURN_GENERATED_KEYS);
+        )
+         {
+
+            connection.setAutoCommit(false);
+
+            //Prepares the Query with Data to insert into DB
+            preparedStatement.setString(1, person.getFirst_Name());
+            preparedStatement.setString(2, person.getLast_Name());
+             preparedStatementForPerson.setInt(3, generatedPersonId);
+
+            //Execute Insert - Return number of rows affected.
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Student created successfully!");
+            } else {
+                System.out.println("Rollback Student Insert");
+                connection.rollback();
+                throw new RuntimeException("Insert Operation in (student) table failed!");
+            }
+            int generatedStudentId = 0;
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    generatedStudentId = generatedKeys.getInt(1);
+                    System.out.println("generatedStudentId = " + generatedStudentId);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }}}}

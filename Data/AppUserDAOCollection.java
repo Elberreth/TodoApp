@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import se.lexicon.Data.Impl.AppUserDAOImpl;
 import se.lexicon.model.AppUser;
-import se.lexicon.model.Person;
 import se.lexicon.util.StringHelper;
 
 public class AppUserDAOCollection implements AppUserDAOImpl{
