@@ -5,7 +5,7 @@ import java.util.Objects;
 import se.lexicon.util.StringHelper;
 
 
-public class ToDoItem {
+public class ToDo_Item {
     private int id;
     private String title;
     private String description;
@@ -44,7 +44,7 @@ public class ToDoItem {
         this.id = id;
     }
 
-    public ToDoItem(String title, String description, LocalDate deadLine, Person creator, int id) {
+    public ToDo_Item(String title, String description, LocalDate deadLine, Person creator, int id) {
         setDone(false);
         setTaskDescription(description);
         setCreator(creator);
@@ -65,7 +65,7 @@ public class ToDoItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ToDoItem toDoItem = (ToDoItem) o;
+        ToDo_Item toDoItem = (ToDo_Item) o;
         return id == toDoItem.id && Objects.equals(title, toDoItem.title) && Objects.equals(description, toDoItem.description) && Objects.equals(deadLine, toDoItem.deadLine);
     }
 

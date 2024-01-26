@@ -7,18 +7,18 @@ public class ToDoItemTask {
 
         private int id;
         private boolean assigned;
-        private ToDoItem todoItem;
+        private ToDo_Item todoItem;
         private Person assignee;
 
         //getters
-        public ToDoItem getTodoItem(){return todoItem;}
+        public ToDo_Item getTodoItem(){return todoItem;}
         public int getId() {return id;}
         public Person getAssignee() {return assignee;}
         public boolean isAssigned() {return assigned;}
 
     //setters
     public void setAssigned(boolean assigned) {this.assigned = assigned;}
-    public void setTodoItem(ToDoItem todoItem) {
+    public void setTodoItem(ToDo_Item todoItem) {
             if(todoItem == null) throw new IllegalArgumentException("todo item was null");
             this.todoItem = todoItem;}
     public void setAssignee(Person assignee) {
@@ -27,7 +27,7 @@ public class ToDoItemTask {
             setAssigned(true);}
     private void setId(int id){this.id = id;}
 
-        public ToDoItemTask(ToDoItem todoItem, Person assignee, int id) {
+        public ToDoItemTask(ToDo_Item todoItem, Person assignee, int id) {
         setAssignee(assignee);
         setTodoItem(todoItem);
         setAssigned(true);
