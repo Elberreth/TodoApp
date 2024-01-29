@@ -28,7 +28,7 @@ public class Connector {
         try {
             connection = DriverManager.getConnection(JDBC_URL , JDBC_USERNAME, JDBC_PASSWORD);
         }catch(SQLException e){
-            //System.out.println("Cant connect to " + JDBC_URL);
+            System.out.println("Cant connect to " + JDBC_URL);
 
             e.printStackTrace();
         }

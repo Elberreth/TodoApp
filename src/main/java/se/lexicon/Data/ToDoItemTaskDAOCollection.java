@@ -1,16 +1,26 @@
 package se.lexicon.Data;
 
 
+
 import se.lexicon.Data.Impl.ToDoItemTaskDAOImpl;
 import se.lexicon.model.ToDoItemTask;
+import se.lexicon.model.ToDoItem;
+import se.lexicon.util.Connector;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class ToDoItemTaskDAOCollection implements ToDoItemTaskDAOImpl {
 
+
+
     private ArrayList <ToDoItemTask> list = new ArrayList<>();
+
     @Override
     public ToDoItemTask persist(ToDoItemTask toDoItemTask) {
         if (toDoItemTask == null) return null;

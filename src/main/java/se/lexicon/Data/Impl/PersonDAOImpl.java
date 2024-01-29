@@ -9,12 +9,13 @@ public interface PersonDAOImpl {
 
     Person findById(int id);
 
-    //Person findByEmail(String email);
+
 
    Collection<Person> findAll();
 
     void remove(int id);
 
     Person update (Person person);
+
     boolean deleteById (int id);
 }

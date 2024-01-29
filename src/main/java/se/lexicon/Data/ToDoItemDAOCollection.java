@@ -1,78 +1,112 @@
 package se.lexicon.Data;
 
 
-import se.lexicon.Data.Impl.ToDoItemDAOImpl;
-import se.lexicon.model.ToDo_Item;
+import se.lexicon.Data.Impl.ToDoItemDAO;
+import se.lexicon.model.Person;
+import se.lexicon.model.ToDoItem;
+import se.lexicon.model.ToDoItem;
+import se.lexicon.util.Connector;
 
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class ToDoItemDAOCollection implements ToDoItemDAOImpl {
+public class ToDoItemDAOCollection implements ToDoItemDAO {
+
+    List<ToDoItem> list = new ArrayList<>();
 
 
-    ArrayList<ToDo_Item> list = new ArrayList<>();
     @Override
-    public ToDo_Item persist(ToDo_Item todoItem) {
-        if(todoItem == null) return null;
-        list.add(todoItem);
+    public ToDoItem create(ToDoItem todoItem) {
+        if (todoItem == null) return null;
+
+        String insertQuery = "INSERT INTO todo_item (title, description, deadline, done, assignee_id) VALUES (?, ?, ?, ?, ?)";
+
+        try (
+                Connection connection = Connector.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            preparedStatement.setString(1, todoItem.getTitle());
+            preparedStatement.setString(2, todoItem.getDescription());
+            preparedStatement.setObject(3, todoItem.getDeadline());
+            preparedStatement.setBoolean(4, todoItem.isDone());
+            preparedStatement.setInt(5, todoItem.getAssigneeId());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("ToDoItem created successfully!");
+            }
+
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int generatedItemId = generatedKeys.getInt(1);
+                    System.out.println("Generated ToDoItem ID = " + generatedItemId);
+                    todoItem.setTodo_id(generatedItemId); // Set the generated ID to the ToDoItem object
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return todoItem;
     }
+
+
     @Override
-    public ToDo_Item findById(int id) {
-        for (ToDo_Item item: list) {
-            if(item.getId() == id) return item;
-        }
-        return  null;
+    public ToDoItem findById(int id) {
+        return list.stream()
+                .filter(item -> item.getTodo_id() == id)
+                .findFirst()
+                .orElse(null);
     }
+
     @Override
-    public Collection<ToDo_Item> findAll() {
+    public Collection<ToDoItem> findAll() {
         return list;
     }
-    public Collection<ToDo_Item> findAllByDoneStatus(boolean status) {
-        // Filter items based on done status
+
+    @Override
+    public Collection<ToDoItem> findByDoneStatus(boolean status) {
         return list.stream()
                 .filter(item -> item.isDone() == status)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Collection<ToDo_Item> findByTitleContains(String title) {
-        // Filter items based on title containing the specified string
+    public Collection<ToDoItem> findByAssignee(int id) {
         return list.stream()
-                .filter(item -> item.getTitle().contains(title))
+                .filter(item -> item.getAssigneeId() == id)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Collection<ToDo_Item> findByPersonId(int id) {
-        // Filter items based on person id
+    public Collection<ToDoItem> findByAssignee(Person assignee) {
         return list.stream()
-                .filter(item -> item.getCreator() != null && item.getCreator().getPerson_id() == id)
+                .filter(item -> item.getAssigneeId() == assignee.getPerson_id())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Collection<ToDo_Item> findByDeadlineAfter(LocalDate after) {
-        // Filter items based on deadline after the specified date
+    public Collection<ToDoItem> findByUnassignedToDoItems() {
         return list.stream()
-                .filter(item -> item.getDeadLine() != null && item.getDeadLine().isAfter(after))
+                .filter(item -> item.getAssigneeId() == 0) // Assuming 0 represents unassigned
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Collection<ToDo_Item> findByDeadlineBefore(LocalDate before) {
-        // Filter items based on deadline before the specified date
-        return list.stream()
-                .filter(item -> item.getDeadLine() != null && item.getDeadLine().isBefore(before))
-                .collect(Collectors.toList());
+    public ToDoItem update(ToDoItem toDoItem) {
+        // Implement the update logic based on your requirements
+        return null;
     }
 
     @Override
-    public void remove(int id) {
-        // Remove an item with the specified id from the list
-        list.removeIf(item -> item.getId() == id);
+    public void deleteById(int id) {
+        list.removeIf(item -> item.getTodo_id() == id);
     }
 }

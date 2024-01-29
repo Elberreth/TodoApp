@@ -24,15 +24,15 @@ public class PersonDAOCollection implements PersonDAOImpl  {
 
 
     @Override
-    public Person create(Person person) {
 
-        String insertQuery = "INSERT INTO person (first_name, last_name) VALUES (?,?)";
+                public Person create(Person person) {
 
-        try (
+            String insertQuery = "INSERT INTO person (first_name, last_name) VALUES (?,?)";
 
+            try (
 
                 Connection connection = Connector.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
 
             preparedStatement.setString(1, person.getFirst_Name());

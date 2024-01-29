@@ -1,5 +1,11 @@
 package se.lexicon.model;
 
+import se.lexicon.util.Connector;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class ToDoItemTask {
@@ -7,27 +13,29 @@ public class ToDoItemTask {
 
         private int id;
         private boolean assigned;
-        private ToDo_Item todoItem;
+        private ToDoItem todoItem;
         private Person assignee;
 
         //getters
-        public ToDo_Item getTodoItem(){return todoItem;}
+        public ToDoItem getTodoItem(){return todoItem;}
         public int getId() {return id;}
         public Person getAssignee() {return assignee;}
         public boolean isAssigned() {return assigned;}
 
     //setters
     public void setAssigned(boolean assigned) {this.assigned = assigned;}
-    public void setTodoItem(ToDo_Item todoItem) {
+    public void setTodoItem(ToDoItem todoItem) {
             if(todoItem == null) throw new IllegalArgumentException("todo item was null");
             this.todoItem = todoItem;}
     public void setAssignee(Person assignee) {
             if (assignee == null) throw new IllegalArgumentException("assignee was null");
             this.assignee = assignee;
             setAssigned(true);}
+
+
     private void setId(int id){this.id = id;}
 
-        public ToDoItemTask(ToDo_Item todoItem, Person assignee, int id) {
+        public ToDoItemTask(ToDoItem todoItem, Person assignee, int id) {
         setAssignee(assignee);
         setTodoItem(todoItem);
         setAssigned(true);
